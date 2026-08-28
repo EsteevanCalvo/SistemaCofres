@@ -2,8 +2,8 @@
 
 ## 1. Problema
 
-En el videojuego que en este caso es una simple aplicación por consolael jugador puede obtener **cofres** al
-completar misiones. Existen 4 categorías de cofre —Común, Raro, Épico y
+En el videojuego que en este caso es una simple aplicación por consolael jugador puede obtener **cofres** y guardar las recompensas en un inventario 
+Existen 4 categorías de cofre —Común, Raro, Épico y
 Legendario— y cada una otorga un tipo de recompensa distinto: monedas,
 armas, armaduras u objetos especiales respectivamente.
 
