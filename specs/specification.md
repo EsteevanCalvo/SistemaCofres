@@ -62,3 +62,46 @@ categorías en el futuro sin modificar el código que ya abre los cofres.
   necesita instancia única ni clonar objetos existentes.
 
 ## 4. Diseño propuesto
+IRecompensa (interfaz - Producto)
+├── RecompensaMonedas
+├── RecompensaArma
+├── RecompensaArmadura
+└── RecompensaObjetoEspecial
+
+CofreCreator (clase abstracta - Creador)
+│   + AbrirCofre(): IRecompensa       <- logica comun, devuelve la recompensa
+│   # CrearRecompensa(): IRecompensa  <- Factory Method (abstracto)
+├── CofreComunCreator       -> crea RecompensaMonedas
+├── CofreRaroCreator        -> crea RecompensaArma
+├── CofreEpicoCreator       -> crea RecompensaArmadura
+└── CofreLegendarioCreator  -> crea RecompensaObjetoEspecial
+
+Program.cs (cliente)
+
+	•	El jugador elige la categoria de cofre por menu.
+	•	El resto del flujo (mostrar cofre, obtener recompensa) usa solo
+CofreCreator / IRecompensa, nunca las clases concretas.
+	•	El inventario y el puntaje (R6) son estado del “juego”, manejado en
+Program.cs a partir del valor que devuelve AbrirCofre(); no forman
+parte de la estructura del patron Factory Method.
+
+## 5. Criterios de aceptación
+
+- [ ] **CA1**: Al seleccionar cada una de las 4 opciones del menú, el
+  programa muestra el mensaje "Has abierto un [Cofre X]!" seguido de una
+  recompensa acorde a esa categoría. *(cumple R1, R5)*
+- [ ] **CA2**: `CofreCreator.cs` no contiene ninguna referencia directa a
+  `RecompensaMonedas`, `RecompensaArma`, `RecompensaArmadura` ni
+  `RecompensaObjetoEspecial`. *(cumple R2)*
+- [ ] **CA3**: Cada clase de recompensa implementa `IRecompensa` y responde
+  correctamente a `Nombre`, `Valor` y `Mostrar()`. *(cumple R3)*
+- [ ] **CA4**: Es posible agregar una quinta categoría (ej. "Cofre Mítico")
+  creando solo una nueva recompensa y un nuevo creador, sin modificar
+  `CofreCreator.cs`. *(cumple R4)*
+- [ ] **CA5**: El proyecto compila y ejecuta en Visual Studio con F5 sin
+  errores, y la opción "5. Salir" termina el programa correctamente.
+  *(cumple R5)*
+- [ ] **CA6**: Al elegir la opción "6. Ver mi inventario", se listan las
+  recompensas obtenidas hasta el momento agrupadas por nombre, y se muestra
+  el puntaje total acumulado. Al salir, se muestra un resumen final con el
+  total de cofres abiertos y el mejor objeto obtenido. *(cumple R6)*
